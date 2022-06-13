@@ -1,0 +1,33 @@
+<label>Filtro</label>
+<div class="">
+    <input [(ngModel)]="filter" class="border-solid border-2 border-gray-700 rounded-sm placeholder:color-gray-400" placeholder="Procure seu curso" type="text" name="course">
+</div>
+<table class="w-full text-center">
+    <thead class="border-solid border-2 border-gray-800">
+        <tr>
+            <th class="border-solid border-2 border-gray-400">Image</th>
+            <th class="border-solid border-2 border-gray-400">Name</th>
+            <th class="border-solid border-2 border-gray-400">Duration(in hours)</th>
+            <th class="border-solid border-2 border-gray-400">Release Date</th>
+            <th class="border-solid border-2 border-gray-400">Code</th>
+            <th class="border-solid border-2 border-gray-400">Price</th>
+            <th class="border-solid border-2 border-gray-400">Rating</th>
+            <th class="border-solid border-2 border-gray-400">Edit</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let course of filteredCourses">
+            <td class="text-center border-solid border-2 border-gray-400 w-20"><img src={{course.imageUrl}}></td>
+            <td class="text-center border-solid border-2 border-gray-400">{{course.name}}</td>
+            <td class="text-center border-solid border-2 border-gray-400">{{course.duration}}</td>
+            <td class="text-center border-solid border-2 border-gray-400">{{course.releaseDate | date: 'dd/MM/yyyy'}}</td>
+            <td class="text-center border-solid border-2 border-gray-400">{{course.code | formatCode: '-':' '}}</td>
+            <td class="text-center border-solid border-2 border-gray-400">R$ {{course.price}}</td>
+            <td class="text-center border-solid border-2 border-gray-400"><star-component [rating]="course.rating"></star-component></td>
+            <td class="text-center border-solid border-2 border-gray-400">
+                <button class="bg-blue-700 rounded-md mx-4 px-3 py-1 text-white"><a [routerLink]="['courses/info/', course.id]">Edit</a></button>
+                <button class="bg-red-500 text-white px-3 py-1 rounded-md" (click)="delete(course.id)">Delete</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
